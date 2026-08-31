@@ -476,6 +476,34 @@
   width: 100%;
 }
 
+.cita-exito-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 680px;
+  width: 100%;
+}
+
+.cita-exito-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #f0fdf4;
+  border: 2px solid #86efac;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #166534;
+}
+
+.cita-exito-container .cita-exito {
+  margin-bottom: 0;
+  text-align: center;
+  font-size: 17px;
+}
+
 .cita-form {
   max-width: 680px;
   width: 100%;
@@ -612,4 +640,333 @@
     opacity: 0.5;
     cursor: not-allowed;
   }
+}
+
+/* ── Login ─────────────────────────────────────── */
+
+.login-page {
+  min-height: 100vh;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.login-form {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.login-logo {
+  font-family: 'Georgia', 'Garamond', serif;
+  font-style: italic;
+  font-size: 32px;
+  font-weight: 500;
+  color: #b8860b;
+  margin: 0 0 8px;
+}
+
+.login-subtitle {
+  color: #888;
+  font-size: 15px;
+  margin: 0;
+}
+
+.login-error {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+.login-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+}
+
+.login-label input {
+  padding: 10px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #1a1a1a;
+  background: #fafafa;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: #fff;
+  }
+}
+
+.login-register {
+  text-align: center;
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+}
+
+.login-register-btn {
+  background: none;
+  border: none;
+  color: #b8860b;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+
+  &:hover {
+    color: #9a7209;
+  }
+}
+
+/* ── Dashboard ─────────────────────────────────── */
+
+.dash-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.dash-sidebar {
+  width: 260px;
+  background: #1a1a1a;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.dash-sidebar-logo {
+  font-family: 'Georgia', 'Garamond', serif;
+  font-style: italic;
+  font-size: 24px;
+  font-weight: 500;
+  color: #b8860b;
+  padding: 24px 24px 32px;
+  border-bottom: 1px solid #333;
+}
+
+.dash-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  gap: 2px;
+}
+
+.dash-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  border: none;
+  background: transparent;
+  color: #999;
+  font-size: 15px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+  text-align: left;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+  }
+
+  &.active {
+    background: rgba(201, 162, 39, 0.15);
+    color: #b8860b;
+    border-right: 3px solid #b8860b;
+  }
+}
+
+.dash-nav-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dash-nav-label {
+  white-space: nowrap;
+}
+
+.dash-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.dash-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dash-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dash-header-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.dash-header-role {
+  font-size: 13px;
+  color: #888;
+}
+
+.btn-logout {
+  padding: 8px 20px;
+  border: 1px solid #d0d0d0;
+  border-radius: 24px;
+  background: transparent;
+  color: #555;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    color 0.3s;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  &:hover {
+    background: rgba(201, 162, 39, 0.08);
+    border-color: var(--accent);
+    color: #b8860b;
+  }
+}
+
+.dash-content {
+  flex: 1;
+  padding: 32px;
+}
+
+.dash-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 400px;
+  color: #888;
+  text-align: center;
+
+  h2 {
+    font-size: 24px;
+    color: #1a1a1a;
+    margin: 0 0 8px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #999;
+    margin: 0;
+  }
+}
+
+.dash-section-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 20px;
+}
+
+.dash-error {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #b91c1c;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.dash-empty {
+  color: #888;
+  font-size: 15px;
+}
+
+.dash-citas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dash-cita-card {
+  background: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dash-cita-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.dash-cita-estado {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #666;
+}
+
+.dash-cita-fecha {
+  font-size: 13px;
+  color: #555;
+}
+
+.dash-cita-body {
+  padding: 14px 16px;
+
+  p {
+    margin: 0 0 6px;
+    font-size: 14px;
+    color: #333;
+  }
+}
+
+.dash-cita-notas {
+  color: #777;
+  font-size: 13px !important;
+  font-style: italic;
 }

@@ -45,7 +45,7 @@ export default function Ubicacion({ onVolver }: UbicacionProps) {
 
         <div className="ubicacion-map">
           <iframe
-            title="Ubicación DermoVita"
+            title="Ubicación DermaVita"
             src="https://maps.google.com/maps?q=Santa+Cruz,+Guanacaste,+Costa+Rica&t=&z=15&ie=UTF8&iwloc=&output=embed"
             loading="lazy"
             allowFullScreen

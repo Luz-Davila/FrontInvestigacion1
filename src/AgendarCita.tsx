@@ -107,8 +107,6 @@ export default function AgendarCita({ onVolver }: AgendarCitaProps) {
     setSubmitting(true)
 
     try {
-      let token: string
-
       if (nuevoUsuario) {
         try {
           await register({
@@ -129,13 +127,15 @@ export default function AgendarCita({ onVolver }: AgendarCitaProps) {
         }
 
         const loginRes = await login(email, password)
-        token = loginRes.token
+        localStorage.setItem('authToken', loginRes.token)
+        localStorage.setItem('refreshToken', loginRes.refreshToken)
       } else {
         const loginRes = await login(emailLogin, passwordLogin)
-        token = loginRes.token
+        localStorage.setItem('authToken', loginRes.token)
+        localStorage.setItem('refreshToken', loginRes.refreshToken)
       }
 
-      const citaRes = await crearCita(token, {
+      const citaRes = await crearCita({
         servicioId,
         dermatologoId: dermatologoId || '00000000-0000-0000-0000-000000000000',
         fechaHora: fechaHora.toISOString(),
@@ -180,9 +180,18 @@ export default function AgendarCita({ onVolver }: AgendarCitaProps) {
       </div>
 
       {error && <div className="cita-error">{error}</div>}
-      {exito && <div className="cita-exito">{exito}</div>}
 
-      <form className="cita-form" onSubmit={handleSubmit}>
+      {exito ? (
+        <div className="cita-exito-container">
+          <div className="cita-exito-icon">✓</div>
+          <div className="cita-exito">{exito}</div>
+          <button type="button" className="btn-confirmar" onClick={onVolver}>
+            Volver al inicio
+          </button>
+        </div>
+      ) : (
+        <>
+          <form className="cita-form" onSubmit={handleSubmit}>
         <fieldset className="cita-fieldset">
           <div className="cita-legend-row">
             <legend>Datos de la cita</legend>
@@ -351,6 +360,8 @@ export default function AgendarCita({ onVolver }: AgendarCitaProps) {
           ← Volver al inicio
         </button>
       </div>
+        </>
+      )}
     </div>
   )
 }
