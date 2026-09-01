@@ -186,3 +186,147 @@ export async function getCitas(): Promise<CitaResponse[]> {
   }
   return res.json()
 }
+
+export interface Tratamiento {
+  id: string
+  nombre: string
+  descripcion: string | null
+}
+
+export interface TratamientoData {
+  nombre: string
+  descripcion?: string | null
+}
+
+export async function getTratamientos(): Promise<Tratamiento[]> {
+  const res = await fetch(`${API}/tratamientos`)
+  if (!res.ok) throw new Error('Error al cargar tratamientos')
+  return res.json()
+}
+
+export async function crearTratamiento(data: TratamientoData): Promise<Tratamiento> {
+  const res = await authFetch(`${API}/tratamientos`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  const body = await res.json()
+  if (!res.ok) throw new Error(body.message || 'Error al crear el tratamiento')
+  return body
+}
+
+export async function actualizarTratamiento(id: string, data: TratamientoData): Promise<Tratamiento> {
+  const res = await authFetch(`${API}/tratamientos/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  const body = await res.json()
+  if (!res.ok) throw new Error(body.message || 'Error al actualizar el tratamiento')
+  return body
+}
+
+export async function eliminarTratamiento(id: string): Promise<void> {
+  const res = await authFetch(`${API}/tratamientos/${id}`, { method: 'DELETE' })
+  const body = await res.json().catch(() => null)
+  if (!res.ok) throw new Error(body?.message || 'Error al eliminar el tratamiento')
+}
+
+export interface Paciente {
+  id: string
+  usuarioId: number
+  nombre: string
+  telefono: string | null
+  fechaNacimiento: string | null
+  email: string
+}
+
+export interface PacienteData {
+  nombre: string
+  telefono?: string | null
+  fechaNacimiento?: string | null
+}
+
+export async function getPacientes(): Promise<Paciente[]> {
+  const res = await authFetch(`${API}/pacientes`)
+  if (!res.ok) {
+    const text = await res.text()
+    let message = 'Error al cargar pacientes'
+    try { message = JSON.parse(text).message || message } catch { /* empty */ }
+    throw new Error(message)
+  }
+  return res.json()
+}
+
+export async function actualizarPaciente(id: string, data: PacienteData): Promise<Paciente> {
+  const res = await authFetch(`${API}/pacientes/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  const body = await res.json()
+  if (!res.ok) throw new Error(body.message || 'Error al actualizar el paciente')
+  return body
+}
+
+export async function eliminarPaciente(id: string): Promise<void> {
+  const res = await authFetch(`${API}/pacientes/${id}`, { method: 'DELETE' })
+  const body = await res.json().catch(() => null)
+  if (!res.ok) throw new Error(body?.message || 'Error al eliminar el paciente')
+}
+
+export interface CitaTratamiento {
+  id: string
+  citaId: string
+  tratamientoId: string
+  observaciones: string | null
+}
+
+export interface CitaTratamientoData {
+  citaId: string
+  tratamientoId: string
+  observaciones?: string | null
+}
+
+export async function getCitaTratamientos(): Promise<CitaTratamiento[]> {
+  const res = await authFetch(`${API}/cita-tratamientos`)
+  if (!res.ok) throw new Error('Error al cargar las asignaciones de tratamiento')
+  return res.json()
+}
+
+export async function crearCitaTratamiento(data: CitaTratamientoData): Promise<CitaTratamiento> {
+  const res = await authFetch(`${API}/cita-tratamientos`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  const body = await res.json()
+  if (!res.ok) throw new Error(body.message || 'Error al asignar el tratamiento')
+  return body
+}
+
+export async function eliminarCitaTratamiento(id: string): Promise<void> {
+  const res = await authFetch(`${API}/cita-tratamientos/${id}`, { method: 'DELETE' })
+  const body = await res.json().catch(() => null)
+  if (!res.ok) throw new Error(body?.message || 'Error al quitar el tratamiento')
+}
+
+export interface UsuarioAdmin {
+  id: number
+  nombre: string | null
+  email: string
+  role: string
+  isActive: boolean
+  subscriptionExpirationDate: string | null
+}
+
+export async function getUsuarios(): Promise<UsuarioAdmin[]> {
+  const res = await authFetch(`${API}/users`)
+  if (!res.ok) {
+    const text = await res.text()
+    let message = 'Error al cargar usuarios'
+    try { message = JSON.parse(text).message || message } catch { /* empty */ }
+    throw new Error(message)
+  }
+  return res.json()
+}

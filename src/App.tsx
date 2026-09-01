@@ -4,19 +4,21 @@ import Servicios from './Servicios'
 import AgendarCita from './AgendarCita'
 import Ubicacion from './Ubicacion'
 import Login from './Login'
+import Registro from './Registro'
 import DashboardLayout from './DashboardLayout'
 import { useAuth } from './auth'
 import './App.css'
 
 function App() {
   const { user, loading } = useAuth()
-  const [page, setPage] = useState<'inicio' | 'servicios' | 'cita' | 'ubicacion' | 'login' | 'dashboard'>('inicio')
+  const [page, setPage] = useState<'inicio' | 'servicios' | 'cita' | 'ubicacion' | 'login' | 'registro' | 'dashboard'>('inicio')
 
   const irAInicio = () => setPage('inicio')
   const irAServicios = () => setPage('servicios')
   const irACita = () => setPage('cita')
   const irAUbicacion = () => setPage('ubicacion')
   const irALogin = () => setPage('login')
+  const irARegistro = () => setPage('registro')
   const irADashboard = () => setPage('dashboard')
 
   const handleInicio = () => {
@@ -66,7 +68,8 @@ function App() {
         </section>
       )}
 
-      {page === 'login' && <Login onVolver={irAInicio} onRegistrar={irACita} />}
+      {page === 'login' && <Login onVolver={irAInicio} onRegistrar={irARegistro} />}
+      {page === 'registro' && <Registro onVolver={irALogin} onRegistrado={irADashboard} />}
       {page === 'dashboard' && user && <DashboardLayout onLogout={irAInicio} />}
       {page === 'servicios' && <Servicios onVolver={irAInicio} />}
       {page === 'cita' && <AgendarCita onVolver={irAInicio} />}
