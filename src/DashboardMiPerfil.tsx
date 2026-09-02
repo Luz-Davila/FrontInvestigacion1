@@ -11,10 +11,19 @@ export default function DashboardMiPerfil() {
       })
     : '—'
 
+  const inicial = (user.nombre || user.email || '?').trim().charAt(0).toUpperCase()
+
   return (
     <>
       <h2 className="dash-section-title">Mi Perfil</h2>
       <div className="dash-perfil-card">
+        <div className="dash-perfil-header">
+          <span className="dash-perfil-avatar">{inicial}</span>
+          <div className="dash-perfil-header-text">
+            <h3>{user.nombre || user.email}</h3>
+            <p>{user.role === 'Admin' ? 'Administrador' : 'Suscriptor'}</p>
+          </div>
+        </div>
         <div className="dash-perfil-item">
           <span className="dash-perfil-label">Nombre</span>
           <span className="dash-perfil-value">{user.nombre || '—'}</span>

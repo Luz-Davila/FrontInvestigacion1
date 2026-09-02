@@ -65,8 +65,12 @@ export interface Servicio {
 
 export interface Dermatologo {
   id: string
+  usuarioId?: number
   nombre: string
   especialidad: string | null
+  numeroLicencia?: string
+  email?: string
+  isActive?: boolean
 }
 
 export interface LoginResponse {
@@ -326,6 +330,134 @@ export async function getUsuarios(): Promise<UsuarioAdmin[]> {
     const text = await res.text()
     let message = 'Error al cargar usuarios'
     try { message = JSON.parse(text).message || message } catch { /* empty */ }
+    throw new Error(message)
+  }
+  return res.json()
+}
+
+export interface ServicioData {
+  nombre: string
+  duracionMinutos: number
+  precio: number
+  activo?: boolean
+}
+
+export async function crearServicio(
+  data: { nombre: string; duracionMinutos: number; precio: number },
+): Promise<Servicio> {
+  const res = await authFetch(`${API}/servicios`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  const body = await res.json()
+  if (!res.ok) throw new Error(body.message || 'Error al crear el servicio')
+  return body
+}
+
+export async function actualizarServicio(id: string, data: ServicioData): Promise<Servicio> {
+  const res = await authFetch(`${API}/servicios/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  const body = await res.json()
+  if (!res.ok) throw new Error(body.message || 'Error al actualizar el servicio')
+  return body
+}
+
+export interface DermatologoData {
+  nombre: string
+  especialidad?: string | null
+  numeroLicencia: string
+}
+
+export async function actualizarDermatologo(id: string, data: DermatologoData): Promise<Dermatologo> {
+  const res = await authFetch(`${API}/dermatologos/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  const body = await res.json()
+  if (!res.ok) throw new Error(body.message || 'Error al actualizar el dermatólogo')
+  return body
+}
+
+export interface CrearDermatologoData {
+  nombre: string
+  email: string
+  password: string
+  numeroLicencia: string
+}
+
+export async function crearDermatologo(
+  data: CrearDermatologoData,
+): Promise<{ id: number; nombre: string; email: string }> {
+  const res = await authFetch(`${API}/admin/register`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+  const body = await res.json()
+  if (!res.ok) {
+    const msg = body?.errors
+      ? Object.values(body.errors).flat().join(' ')
+      : body?.message
+    throw new Error(msg || 'Error al crear el dermatólogo')
+  }
+  return body
+}
+
+export async function updateIsActive(usuarioId: number, isActive: boolean): Promise<void> {
+  const res = await authFetch(`${API}/users/${usuarioId}/is-active`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ isActive }),
+  })
+  if (!res.ok) {
+    const body = await res.json().catch(() => null)
+    throw new Error(body?.message || 'Error al actualizar el estado')
+  }
+}
+
+export async function updateSubscriptionExpiration(
+  usuarioId: number,
+  subscriptionExpirationDate: string,
+): Promise<void> {
+  const res = await authFetch(`${API}/users/${usuarioId}/subscription-expiration`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ subscriptionExpirationDate }),
+  })
+  if (!res.ok) {
+    const body = await res.json().catch(() => null)
+    throw new Error(body?.message || 'Error al actualizar la suscripción')
+  }
+}
+
+export interface HistorialCita {
+  id: string
+  fechaHora: string
+  estado: string
+  notas: string | null
+  servicio: { id: string; nombre: string } | null
+  dermatologo: { id: string; nombre: string } | null
+  tratamientos: { nombre: string; observaciones: string | null }[]
+}
+
+export interface HistorialPaciente {
+  pacienteId: string
+  pacienteNombre: string
+  citas: HistorialCita[]
+}
+
+export async function getHistorialPaciente(pacienteId: string): Promise<HistorialPaciente> {
+  const res = await authFetch(`${API}/pacientes/${pacienteId}/historial`)
+  if (!res.ok) {
+    const text = await res.text()
+    let message = 'Error al cargar el historial'
+    try { message = JSON.parse(text).message || message } catch { /* empty */ }
+    if (res.status === 403) message = 'No tienes permiso para ver este historial'
     throw new Error(message)
   }
   return res.json()

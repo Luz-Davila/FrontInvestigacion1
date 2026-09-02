@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from './auth'
+import DashboardHomeAdmin from './DashboardHomeAdmin'
+import DashboardHomePaciente from './DashboardHomePaciente'
 import DashboardCitasAdmin from './DashboardCitasAdmin'
 import DashboardMisCitas from './DashboardMisCitas'
 import DashboardTratamientos from './DashboardTratamientos'
@@ -17,6 +19,8 @@ import {
   UserRound,
   Users,
   UserCircle2,
+  Search,
+  Bell,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -70,6 +74,8 @@ export default function DashboardLayout({ onLogout }: DashboardLayoutProps) {
 
   const renderSection = () => {
     switch (activeSection) {
+      case 'dashboard':
+        return isAdmin ? <DashboardHomeAdmin /> : <DashboardHomePaciente />
       case 'citas':
         return <DashboardCitasAdmin />
       case 'mis-citas':
@@ -118,6 +124,14 @@ export default function DashboardLayout({ onLogout }: DashboardLayoutProps) {
 
       <div className="dash-main">
         <header className="dash-header">
+          <div className="dash-header-actions">
+            <button type="button" className="dash-icon-btn" aria-label="Buscar">
+              <Search size={18} strokeWidth={2} />
+            </button>
+            <button type="button" className="dash-icon-btn" aria-label="Notificaciones">
+              <Bell size={18} strokeWidth={2} />
+            </button>
+          </div>
           <div className="dash-header-info">
             <span className="dash-header-name">{user?.nombre || user?.email}</span>
             <span className="dash-header-role">{user?.role === 'Admin' ? 'Administrador' : 'Suscriptor'}</span>
