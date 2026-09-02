@@ -138,7 +138,11 @@ export default function DashboardCitasAdmin() {
                 </div>
 
                 <div className="dash-asignar-row">
+                  <label className="dash-asignar-label" htmlFor={`tratamiento-${cita.id}`}>
+                    Agregar tratamiento
+                  </label>
                   <select
+                    id={`tratamiento-${cita.id}`}
                     className="dash-select"
                     value={seleccion[cita.id] ?? ''}
                     onChange={(e) => setSeleccion((s) => ({ ...s, [cita.id]: e.target.value }))}

@@ -779,11 +779,11 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 24px;
+  padding: 13px 24px;
   border: none;
   background: transparent;
   color: #999;
-  font-size: 15px;
+  font-size: 16px;
   cursor: pointer;
   transition:
     background-color 0.2s,
@@ -899,7 +899,7 @@
 }
 
 .dash-section-title {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 600;
   color: #1a1a1a;
   margin: 0 0 20px;
@@ -917,7 +917,7 @@
 
 .dash-empty {
   color: #888;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .dash-citas-list {
@@ -929,8 +929,9 @@
 .dash-cita-card {
   background: #f9f9f9;
   border: 1px solid #e5e5e5;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .dash-cita-header {
@@ -951,16 +952,16 @@
 }
 
 .dash-cita-fecha {
-  font-size: 13px;
+  font-size: 14px;
   color: #555;
 }
 
 .dash-cita-body {
-  padding: 14px 16px;
+  padding: 16px 18px;
 
   p {
-    margin: 0 0 6px;
-    font-size: 14px;
+    margin: 0 0 8px;
+    font-size: 15px;
     color: #333;
   }
 }
@@ -993,17 +994,17 @@
 }
 
 .dash-toolbar-note {
-  font-size: 13px;
+  font-size: 14px;
   color: #999;
 }
 
 /* ── Dashboard: botones de acción ──────────────── */
 
 .dash-btn {
-  padding: 8px 16px;
+  padding: 9px 18px;
   border-radius: 8px;
   border: 1px solid transparent;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   cursor: pointer;
   transition:
@@ -1056,21 +1057,22 @@
   border-collapse: collapse;
   background: #ffffff;
   border: 1px solid #e5e5e5;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
-  font-size: 14px;
+  font-size: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 
   th,
   td {
     text-align: left;
-    padding: 12px 16px;
+    padding: 14px 18px;
     border-bottom: 1px solid #eeeeee;
   }
 
   th {
     background: #f0f0f0;
     color: #555;
-    font-size: 12px;
+    font-size: 12.5px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1100,37 +1102,39 @@
 .dash-form {
   background: #ffffff;
   border: 1px solid #e5e5e5;
-  border-radius: 10px;
-  padding: 20px 24px;
-  margin-bottom: 20px;
+  border-radius: 14px;
+  padding: 28px 32px;
+  margin: 0 auto 24px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 520px;
+  gap: 16px;
+  max-width: 560px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 
 .dash-form-title {
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 600;
   color: #1a1a1a;
-  margin: 0;
+  margin: 0 0 4px;
+  text-align: center;
 }
 
 .dash-form-label {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-size: 14px;
+  gap: 7px;
+  font-size: 15px;
   font-weight: 500;
   color: #444;
 
   input,
   textarea,
   select {
-    padding: 10px 14px;
+    padding: 11px 16px;
     border: 1px solid #d0d0d0;
-    border-radius: 8px;
-    font-size: 15px;
+    border-radius: 9px;
+    font-size: 16px;
     color: #1a1a1a;
     background: #fafafa;
     font-family: inherit;
@@ -1139,6 +1143,7 @@
       outline: none;
       border-color: #b8860b;
       background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.12);
     }
   }
 }
@@ -1146,16 +1151,17 @@
 .dash-form-actions {
   display: flex;
   gap: 10px;
-  margin-top: 4px;
+  margin-top: 6px;
+  justify-content: center;
 }
 
 /* ── Dashboard: selección y tratamientos por cita ── */
 
 .dash-select {
-  padding: 8px 12px;
+  padding: 9px 14px;
   border: 1px solid #d0d0d0;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 15px;
   color: #1a1a1a;
   background: #ffffff;
   font-family: inherit;
@@ -1167,13 +1173,14 @@
 }
 
 .dash-tratamientos-block {
-  margin-top: 12px;
-  padding-top: 12px;
+  margin-top: 14px;
+  padding-top: 14px;
   border-top: 1px dashed #dcdcdc;
 }
 
 .dash-tratamientos-title {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
+  font-size: 15px;
 }
 
 .dash-tratamiento-item {
@@ -1189,13 +1196,13 @@
 }
 
 .dash-tratamiento-nombre {
-  font-size: 14px;
+  font-size: 15px;
   color: #333;
   font-weight: 500;
 }
 
 .dash-tratamiento-obs {
-  font-size: 13px;
+  font-size: 14px;
   color: #888;
   font-style: italic;
   flex: 1;
@@ -1204,8 +1211,27 @@
 .dash-asignar-row {
   display: flex;
   gap: 10px;
-  margin-top: 12px;
+  margin-top: 14px;
   align-items: center;
+  flex-wrap: wrap;
+  background: #fbfaf6;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+  padding: 12px 14px;
+
+  .dash-select {
+    flex: 1;
+    min-width: 180px;
+  }
+}
+
+.dash-asignar-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  flex-basis: 100%;
 }
 
 /* ── Dashboard: estado / perfil ────────────────── */
@@ -1231,9 +1257,11 @@
 .dash-perfil-card {
   background: #ffffff;
   border: 1px solid #e5e5e5;
-  border-radius: 10px;
-  padding: 8px 24px;
-  max-width: 480px;
+  border-radius: 14px;
+  padding: 8px 28px;
+  max-width: 520px;
+  margin: 0 auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 
 .dash-perfil-item {
@@ -1250,7 +1278,7 @@
 }
 
 .dash-perfil-label {
-  font-size: 13px;
+  font-size: 14px;
   color: #999;
   font-weight: 600;
   text-transform: uppercase;
@@ -1258,7 +1286,163 @@
 }
 
 .dash-perfil-value {
-  font-size: 15px;
+  font-size: 17px;
   color: #1a1a1a;
   text-align: right;
+  font-weight: 500;
+}
+
+/* ── Dashboard: inicio (resumen con cards) ────── */
+
+.dash-home {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.dash-home-greeting {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dash-home-greeting h2 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.dash-home-greeting p {
+  font-size: 15px;
+  color: #888;
+  margin: 0;
+}
+
+.dash-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.dash-card {
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  padding: 22px 24px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.dash-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(184, 134, 11, 0.12);
+  color: #b8860b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dash-card-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.1;
+}
+
+.dash-card-label {
+  font-size: 14px;
+  color: #888;
+  font-weight: 500;
+}
+
+.dash-home-section {
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  padding: 22px 26px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dash-home-section h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 14px;
+}
+
+.dash-home-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dash-home-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  background: #fbfaf6;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #333;
+}
+
+.dash-home-list-item strong {
+  color: #1a1a1a;
+}
+
+.dash-home-empty {
+  color: #999;
+  font-size: 15px;
+  padding: 8px 0;
+}
+
+/* ── Dashboard: perfil con avatar ──────────────── */
+
+.dash-perfil-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0 4px;
+}
+
+.dash-perfil-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(184, 134, 11, 0.14);
+  color: #b8860b;
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dash-perfil-header-text h3 {
+  margin: 0 0 2px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.dash-perfil-header-text p {
+  margin: 0;
+  font-size: 14px;
+  color: #999;
 }

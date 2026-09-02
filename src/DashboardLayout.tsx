@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from './auth'
+import DashboardHomeAdmin from './DashboardHomeAdmin'
+import DashboardHomePaciente from './DashboardHomePaciente'
 import DashboardCitasAdmin from './DashboardCitasAdmin'
 import DashboardMisCitas from './DashboardMisCitas'
 import DashboardTratamientos from './DashboardTratamientos'
@@ -70,6 +72,8 @@ export default function DashboardLayout({ onLogout }: DashboardLayoutProps) {
 
   const renderSection = () => {
     switch (activeSection) {
+      case 'dashboard':
+        return isAdmin ? <DashboardHomeAdmin /> : <DashboardHomePaciente />
       case 'citas':
         return <DashboardCitasAdmin />
       case 'mis-citas':
