@@ -1759,6 +1759,7 @@
 
 .dash-list-card-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   flex-shrink: 0;
   margin-left: auto;

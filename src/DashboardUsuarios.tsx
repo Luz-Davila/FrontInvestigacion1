@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
-import { getUsuarios, updateSubscriptionExpiration, type UsuarioAdmin } from './api'
+import { getUsuarios, updateIsActive, updateSubscriptionExpiration, type UsuarioAdmin } from './api'
+import { useAuth } from './auth'
 import { Users } from 'lucide-react'
 
 const TINTS = ['#faf3e0', '#f2ede2', '#f8ece0']
 
 export default function DashboardUsuarios() {
+  const { user } = useAuth()
   const [usuarios, setUsuarios] = useState<UsuarioAdmin[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -59,6 +61,27 @@ export default function DashboardUsuarios() {
       setBusy(false)
     }
   }
+
+  const cambiarEstado = async (u: UsuarioAdmin) => {
+    setBusy(true)
+    setError('')
+    try {
+      await updateIsActive(u.id, !u.isActive)
+      cargar()
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Error al actualizar el estado'
+      setError(msg)
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const ultimoAdminId = [...usuarios]
+    .filter((u) => u.role === 'Admin')
+    .sort((a, b) => b.id - a.id)[0]?.id
+
+  const noPermiteDesactivar = (u: UsuarioAdmin) =>
+    u.role === 'Admin' && (u.id === user?.id || u.id === ultimoAdminId)
 
   const formatFecha = (fechaIso: string | null) =>
     fechaIso
@@ -123,6 +146,19 @@ export default function DashboardUsuarios() {
                     onClick={() => abrirEditar(u)}
                   >
                     Editar vencimiento
+                  </button>
+                  <button
+                    type="button"
+                    className={`dash-btn ${u.isActive ? 'dash-btn-danger' : 'dash-btn-primary'}`}
+                    disabled={busy || (u.isActive && noPermiteDesactivar(u))}
+                    title={
+                      u.isActive && noPermiteDesactivar(u)
+                        ? 'No puedes desactivar este administrador'
+                        : undefined
+                    }
+                    onClick={() => cambiarEstado(u)}
+                  >
+                    {u.isActive ? 'Desactivar' : 'Activar'}
                   </button>
                 </div>
               )}
