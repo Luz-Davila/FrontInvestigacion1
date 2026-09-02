@@ -779,8 +779,10 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 13px 24px;
+  margin: 0 14px;
+  padding: 12px 16px;
   border: none;
+  border-radius: 12px;
   background: transparent;
   color: #999;
   font-size: 16px;
@@ -792,14 +794,14 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.08);
     color: #ffffff;
   }
 
   &.active {
-    background: rgba(201, 162, 39, 0.15);
-    color: #b8860b;
-    border-right: 3px solid #b8860b;
+    background: #b8860b;
+    color: #1a1a1a;
+    font-weight: 600;
   }
 }
 
@@ -821,6 +823,7 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
+  max-width: 100%;
 }
 
 .dash-header {
@@ -829,7 +832,37 @@
   padding: 16px 32px;
   display: flex;
   align-items: center;
+  gap: 20px;
   justify-content: space-between;
+}
+
+.dash-header-actions {
+  display: flex;
+  gap: 10px;
+  margin-right: auto;
+}
+
+.dash-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #e5e5e5;
+  background: #fafafa;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+
+  &:hover {
+    background: #faf6eb;
+    border-color: #b8860b;
+    color: #b8860b;
+  }
 }
 
 .dash-header-info {
@@ -873,6 +906,8 @@
 .dash-content {
   flex: 1;
   padding: 32px;
+  overflow-x: auto;
+  min-width: 0;
 }
 
 .dash-placeholder {
@@ -927,9 +962,9 @@
 }
 
 .dash-cita-card {
-  background: #f9f9f9;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
+  background: var(--tint, #f9f9f9);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
@@ -939,8 +974,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 16px;
-  background: #f0f0f0;
-  border-bottom: 1px solid #e5e5e5;
+  background: rgba(255, 255, 255, 0.55);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .dash-cita-estado {
@@ -1321,8 +1356,14 @@
 
 .dash-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 18px;
+}
+
+@media (max-width: 640px) {
+  .dash-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .dash-card {
@@ -1445,4 +1486,280 @@
   margin: 0;
   font-size: 14px;
   color: #999;
+}
+
+/* ── Dashboard: inicio, layout de dos columnas ─── */
+
+.dash-home-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 300px);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .dash-home-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.dash-agenda-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dash-agenda-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: var(--tint, #faf3e0);
+  min-width: 0;
+}
+
+.dash-agenda-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.65);
+  color: #a5760a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dash-agenda-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.dash-agenda-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dash-agenda-meta {
+  font-size: 13.5px;
+  color: #7a7a7a;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  strong {
+    color: #4a4a4a;
+  }
+}
+
+.dash-agenda-arrow {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #b8860b;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: none;
+}
+
+.dash-side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dash-panel-card {
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  padding: 20px 22px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.dash-panel-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dash-panel-link {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #b8860b;
+}
+
+.dash-mini-cal-month {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #b8860b;
+  margin: -6px 0 12px;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+}
+
+.dash-mini-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.dash-mini-cal-dow {
+  font-size: 11px;
+  color: #aaaaaa;
+  font-weight: 600;
+  padding-bottom: 4px;
+}
+
+.dash-mini-cal-day {
+  font-size: 12.5px;
+  color: #444444;
+  padding: 6px 0;
+  border-radius: 8px;
+
+  &.is-empty {
+    visibility: hidden;
+  }
+
+  &.has-cita:not(.is-today) {
+    background: rgba(184, 134, 11, 0.14);
+    color: #8a6408;
+    font-weight: 600;
+  }
+
+  &.is-today {
+    background: #b8860b;
+    color: #ffffff;
+    font-weight: 700;
+  }
+}
+
+.dash-people-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dash-person-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dash-person-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(184, 134, 11, 0.14);
+  color: #a5760a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.dash-person-avatar .dash-dot {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+
+  &.activo {
+    background: #2fae60;
+  }
+
+  &.inactivo {
+    background: #c7c7c7;
+  }
+}
+
+.dash-person-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.dash-person-sub {
+  font-size: 12.5px;
+  color: #999999;
+}
+
+/* ── Dashboard: listas en formato de tarjeta ───── */
+
+.dash-list-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dash-list-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: var(--tint, #faf3e0);
+  flex-wrap: wrap;
+}
+
+.dash-list-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.65);
+  color: #a5760a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dash-list-card-body {
+  flex: 1;
+  min-width: 160px;
+}
+
+.dash-list-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 4px;
+}
+
+.dash-list-card-meta {
+  font-size: 13.5px;
+  color: #6f6f6f;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.dash-list-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-left: auto;
 }

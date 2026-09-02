@@ -5,6 +5,9 @@ import {
   eliminarPaciente,
   type Paciente,
 } from './api'
+import { User } from 'lucide-react'
+
+const TINTS = ['#faf3e0', '#f2ede2', '#f8ece0']
 
 export default function DashboardPacientes() {
   const [pacientes, setPacientes] = useState<Paciente[]>([])
@@ -143,52 +146,51 @@ export default function DashboardPacientes() {
         <p className="dash-empty">No hay pacientes registrados.</p>
       )}
       {!loading && !error && pacientes.length > 0 && (
-        <table className="dash-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Teléfono</th>
-              <th>Fecha de nacimiento</th>
-              <th className="dash-table-acciones">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pacientes.map((p) => (
-              <tr key={p.id}>
-                <td>{p.nombre}</td>
-                <td>{p.email}</td>
-                <td>{p.telefono || '—'}</td>
-                <td>
-                  {p.fechaNacimiento
-                    ? new Date(p.fechaNacimiento).toLocaleDateString('es-CR', {
-                        day: '2-digit', month: 'short', year: 'numeric',
-                      })
-                    : '—'}
-                </td>
-                <td className="dash-table-acciones">
-                  <div className="dash-acciones">
-                    <button
-                      type="button"
-                      className="dash-btn dash-btn-ghost"
-                      onClick={() => abrirEditar(p)}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      type="button"
-                      className="dash-btn dash-btn-danger"
-                      disabled={busy}
-                      onClick={() => eliminar(p)}
-                    >
-                      Eliminar
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="dash-list-cards">
+          {pacientes.map((p, i) => (
+            <div
+              key={p.id}
+              className="dash-list-card"
+              style={{ '--tint': TINTS[i % TINTS.length] } as React.CSSProperties}
+            >
+              <span className="dash-list-card-icon">
+                <User size={22} strokeWidth={2} />
+              </span>
+              <div className="dash-list-card-body">
+                <p className="dash-list-card-title">{p.nombre}</p>
+                <p className="dash-list-card-meta">
+                  <span>{p.email}</span>
+                  <span>· {p.telefono || 'Sin teléfono'}</span>
+                  <span>
+                    ·{' '}
+                    {p.fechaNacimiento
+                      ? new Date(p.fechaNacimiento).toLocaleDateString('es-CR', {
+                          day: '2-digit', month: 'short', year: 'numeric',
+                        })
+                      : 'Sin fecha de nacimiento'}
+                  </span>
+                </p>
+              </div>
+              <div className="dash-list-card-actions">
+                <button
+                  type="button"
+                  className="dash-btn dash-btn-ghost"
+                  onClick={() => abrirEditar(p)}
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  className="dash-btn dash-btn-danger"
+                  disabled={busy}
+                  onClick={() => eliminar(p)}
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </>
   )

@@ -10,6 +10,8 @@ import {
   type CitaTratamiento,
 } from './api'
 
+const TINTS = ['#faf3e0', '#f2ede2', '#f8ece0']
+
 export default function DashboardCitasAdmin() {
   const [citas, setCitas] = useState<CitaResponse[]>([])
   const [tratamientos, setTratamientos] = useState<Tratamiento[]>([])
@@ -92,8 +94,12 @@ export default function DashboardCitasAdmin() {
       )}
       {!loading && !error && citas.length > 0 && (
         <div className="dash-citas-list">
-          {citas.map((cita) => (
-            <div key={cita.id} className="dash-cita-card">
+          {citas.map((cita, i) => (
+            <div
+              key={cita.id}
+              className="dash-cita-card"
+              style={{ '--tint': TINTS[i % TINTS.length] } as React.CSSProperties}
+            >
               <div className="dash-cita-header">
                 <span className="dash-cita-estado">{cita.estado}</span>
                 <span className="dash-cita-fecha">

@@ -5,6 +5,9 @@ import {
   actualizarServicio,
   type Servicio,
 } from './api'
+import { Sparkles } from 'lucide-react'
+
+const TINTS = ['#faf3e0', '#f2ede2', '#f8ece0']
 
 const emptyForm = { nombre: '', duracionMinutos: '', precio: '' }
 
@@ -185,50 +188,46 @@ export default function DashboardServicios() {
         <p className="dash-empty">No hay servicios registrados.</p>
       )}
       {!loading && !error && servicios.length > 0 && (
-        <table className="dash-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Duración</th>
-              <th>Precio</th>
-              <th>Estado</th>
-              <th className="dash-table-acciones">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {servicios.map((s) => (
-              <tr key={s.id}>
-                <td>{s.nombre}</td>
-                <td>{s.duracionMinutos} min</td>
-                <td>{formatPrecio(s.precio)}</td>
-                <td>
+        <div className="dash-list-cards">
+          {servicios.map((s, i) => (
+            <div
+              key={s.id}
+              className="dash-list-card"
+              style={{ '--tint': TINTS[i % TINTS.length] } as React.CSSProperties}
+            >
+              <span className="dash-list-card-icon">
+                <Sparkles size={22} strokeWidth={2} />
+              </span>
+              <div className="dash-list-card-body">
+                <p className="dash-list-card-title">{s.nombre}</p>
+                <p className="dash-list-card-meta">
+                  <span>{s.duracionMinutos} min</span>
+                  <span>· {formatPrecio(s.precio)}</span>
                   <span className={`dash-estado ${s.activo ? 'activo' : 'inactivo'}`}>
                     {s.activo ? 'Activo' : 'Inactivo'}
                   </span>
-                </td>
-                <td className="dash-table-acciones">
-                  <div className="dash-acciones">
-                    <button
-                      type="button"
-                      className="dash-btn dash-btn-ghost"
-                      onClick={() => abrirEditar(s)}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      type="button"
-                      className="dash-btn dash-btn-danger"
-                      disabled={busy}
-                      onClick={() => alternarActivo(s)}
-                    >
-                      {s.activo ? 'Inhabilitar' : 'Reactivar'}
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </p>
+              </div>
+              <div className="dash-list-card-actions">
+                <button
+                  type="button"
+                  className="dash-btn dash-btn-ghost"
+                  onClick={() => abrirEditar(s)}
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  className="dash-btn dash-btn-danger"
+                  disabled={busy}
+                  onClick={() => alternarActivo(s)}
+                >
+                  {s.activo ? 'Inhabilitar' : 'Reactivar'}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </>
   )

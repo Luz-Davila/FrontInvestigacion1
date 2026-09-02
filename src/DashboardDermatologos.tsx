@@ -6,6 +6,9 @@ import {
   updateIsActive,
   type Dermatologo,
 } from './api'
+import { UserRound } from 'lucide-react'
+
+const TINTS = ['#faf3e0', '#f2ede2', '#f8ece0']
 
 const emptyForm = {
   nombre: '',
@@ -207,50 +210,46 @@ export default function DashboardDermatologos() {
         <p className="dash-empty">No hay dermatólogos registrados.</p>
       )}
       {!loading && !error && dermatologos.length > 0 && (
-        <table className="dash-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Especialidad</th>
-              <th>Licencia</th>
-              <th>Estado</th>
-              <th className="dash-table-acciones">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {dermatologos.map((d) => (
-              <tr key={d.id}>
-                <td>{d.nombre}</td>
-                <td>{d.especialidad || '—'}</td>
-                <td>{d.numeroLicencia || '—'}</td>
-                <td>
+        <div className="dash-list-cards">
+          {dermatologos.map((d, i) => (
+            <div
+              key={d.id}
+              className="dash-list-card"
+              style={{ '--tint': TINTS[i % TINTS.length] } as React.CSSProperties}
+            >
+              <span className="dash-list-card-icon">
+                <UserRound size={22} strokeWidth={2} />
+              </span>
+              <div className="dash-list-card-body">
+                <p className="dash-list-card-title">{d.nombre}</p>
+                <p className="dash-list-card-meta">
+                  <span>{d.especialidad || 'Sin especialidad'}</span>
+                  <span>· Licencia {d.numeroLicencia || '—'}</span>
                   <span className={`dash-estado ${d.isActive ? 'activo' : 'inactivo'}`}>
                     {d.isActive ? 'Activo' : 'Inactivo'}
                   </span>
-                </td>
-                <td className="dash-table-acciones">
-                  <div className="dash-acciones">
-                    <button
-                      type="button"
-                      className="dash-btn dash-btn-ghost"
-                      onClick={() => abrirEditar(d)}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      type="button"
-                      className="dash-btn dash-btn-danger"
-                      disabled={busy || !d.usuarioId}
-                      onClick={() => alternarActivo(d)}
-                    >
-                      {d.isActive ? 'Inhabilitar' : 'Reactivar'}
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </p>
+              </div>
+              <div className="dash-list-card-actions">
+                <button
+                  type="button"
+                  className="dash-btn dash-btn-ghost"
+                  onClick={() => abrirEditar(d)}
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  className="dash-btn dash-btn-danger"
+                  disabled={busy || !d.usuarioId}
+                  onClick={() => alternarActivo(d)}
+                >
+                  {d.isActive ? 'Inhabilitar' : 'Reactivar'}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </>
   )

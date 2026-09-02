@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import { getUsuarios, type UsuarioAdmin } from './api'
+import { Users } from 'lucide-react'
+
+const TINTS = ['#faf3e0', '#f2ede2', '#f8ece0']
 
 export default function DashboardUsuarios() {
   const [usuarios, setUsuarios] = useState<UsuarioAdmin[]>([])
@@ -27,30 +30,29 @@ export default function DashboardUsuarios() {
         <p className="dash-empty">No hay usuarios registrados.</p>
       )}
       {!loading && !error && usuarios.length > 0 && (
-        <table className="dash-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Email</th>
-              <th>Rol</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            {usuarios.map((u) => (
-              <tr key={u.id}>
-                <td>{u.nombre || '—'}</td>
-                <td>{u.email}</td>
-                <td>{u.role}</td>
-                <td>
+        <div className="dash-list-cards">
+          {usuarios.map((u, i) => (
+            <div
+              key={u.id}
+              className="dash-list-card"
+              style={{ '--tint': TINTS[i % TINTS.length] } as React.CSSProperties}
+            >
+              <span className="dash-list-card-icon">
+                <Users size={22} strokeWidth={2} />
+              </span>
+              <div className="dash-list-card-body">
+                <p className="dash-list-card-title">{u.nombre || '—'}</p>
+                <p className="dash-list-card-meta">
+                  <span>{u.email}</span>
+                  <span>· {u.role}</span>
                   <span className={`dash-estado ${u.isActive ? 'activo' : 'inactivo'}`}>
                     {u.isActive ? 'Activo' : 'Inactivo'}
                   </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </>
   )

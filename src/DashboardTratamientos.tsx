@@ -6,6 +6,9 @@ import {
   eliminarTratamiento,
   type Tratamiento,
 } from './api'
+import { Activity } from 'lucide-react'
+
+const TINTS = ['#faf3e0', '#f2ede2', '#f8ece0']
 
 export default function DashboardTratamientos() {
   const [tratamientos, setTratamientos] = useState<Tratamiento[]>([])
@@ -149,42 +152,40 @@ export default function DashboardTratamientos() {
         <p className="dash-empty">No hay tratamientos registrados.</p>
       )}
       {!loading && !error && tratamientos.length > 0 && (
-        <table className="dash-table">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Descripción</th>
-              <th className="dash-table-acciones">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tratamientos.map((t) => (
-              <tr key={t.id}>
-                <td>{t.nombre}</td>
-                <td>{t.descripcion || '—'}</td>
-                <td className="dash-table-acciones">
-                  <div className="dash-acciones">
-                    <button
-                      type="button"
-                      className="dash-btn dash-btn-ghost"
-                      onClick={() => abrirEditar(t)}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      type="button"
-                      className="dash-btn dash-btn-danger"
-                      disabled={busy}
-                      onClick={() => eliminar(t)}
-                    >
-                      Eliminar
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="dash-list-cards">
+          {tratamientos.map((t, i) => (
+            <div
+              key={t.id}
+              className="dash-list-card"
+              style={{ '--tint': TINTS[i % TINTS.length] } as React.CSSProperties}
+            >
+              <span className="dash-list-card-icon">
+                <Activity size={22} strokeWidth={2} />
+              </span>
+              <div className="dash-list-card-body">
+                <p className="dash-list-card-title">{t.nombre}</p>
+                <p className="dash-list-card-meta">{t.descripcion || 'Sin descripción'}</p>
+              </div>
+              <div className="dash-list-card-actions">
+                <button
+                  type="button"
+                  className="dash-btn dash-btn-ghost"
+                  onClick={() => abrirEditar(t)}
+                >
+                  Editar
+                </button>
+                <button
+                  type="button"
+                  className="dash-btn dash-btn-danger"
+                  disabled={busy}
+                  onClick={() => eliminar(t)}
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </>
   )
