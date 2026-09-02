@@ -1763,3 +1763,26 @@
   flex-shrink: 0;
   margin-left: auto;
 }
+
+.dash-list-card-edit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+
+  input[type='date'] {
+    padding: 8px 12px;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #1a1a1a;
+    background: #ffffff;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: #b8860b;
+    }
+  }
+}
